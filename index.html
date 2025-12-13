@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Présentation – Mujtaba Ghous</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #ffffff;
+      background: linear-gradient(130deg, #0f172a, #1d4ed8, #a855f7, #0f766e);
+      background-size: 400% 400%;
+      animation: gradientShift 18s ease infinite;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating shapes in the background */
+    .floating-circle {
+      position: fixed;
+      border-radius: 999px;
+      opacity: 0.18;
+      filter: blur(2px);
+      pointer-events: none;
+      animation: float 18s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    .circle-1 {
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, #22d3ee, transparent);
+      top: 5%;
+      left: 5%;
+    }
+
+    .circle-2 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, #f97316, transparent);
+      top: 60%;
+      right: -5%;
+      animation-delay: 4s;
+    }
+
+    .circle-3 {
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, #22c55e, transparent);
+      bottom: -10%;
+      left: 40%;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0px) translateX(0px); }
+      to   { transform: translateY(-40px) translateX(20px); }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to right, rgba(15,23,42,0.95), rgba(15,23,42,0.15));
+      border-bottom: 1px solid rgba(148,163,184,0.25);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: 1.1rem;
+    }
+
+    .logo span {
+      color: #facc15;
+    }
+
+    .nav-links a {
+      margin-left: 18px;
+      text-decoration: none;
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, #38bdf8, #a855f7);
+      transition: width 0.25s ease-out;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 18px 60px 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 32px;
+      align-items: center;
+      padding: 30px 22px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(37,99,235,0.5));
+      box-shadow: 0 24px 80px rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,184,0.6);
+    }
+
+    .hero-title {
+      font-size: clamp(1.9rem, 3vw, 2.3rem);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #e5e7eb;
+      margin-bottom: 12px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(22,163,74,0.15);
+      color: #bbf7d0;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-badge span {
+      font-size: 1.1rem;
+    }
+
+    .hero-buttons {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease-out;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #a3e635);
+      color: #052e16;
+      box-shadow: 0 8px 24px rgba(22,163,74,0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(22,163,74,0.6);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: rgba(148,163,184,0.8);
+      color: #e5e7eb;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15,23,42,0.7);
+    }
+
+    .hero-right {
+      position: relative;
+      min-height: 220px;
+    }
+
+    .hero-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.5), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(192,132,252,0.6), transparent 60%),
+                  rgba(15,23,42,0.85);
+      border: 1px solid rgba(148,163,184,0.6);
+      display: flex;
+      flex-direction: column;
+      padding: 18px;
+      overflow: hidden;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      color: #e5e7eb;
+      margin-bottom: 6px;
+      opacity: 0.9;
+    }
+
+    .hero-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .hero-role {
+      font-size: 0.9rem;
+      color: #d1d5db;
+      margin-bottom: 16px;
+    }
+
+    .hero-pill {
+      font-size: 0.8rem;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: rgba(8,47,73,0.85);
+      border: 1px solid rgba(56,189,248,0.6);
+      max-width: max-content;
+      margin-bottom: 8px;
+    }
+
+    .hero-bubbles {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.75rem;
+    }
+
+    .hero-bubbles span {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.75);
+      border: 1px solid rgba(148,163,184,0.55);
+    }
+
+    /* Sections */
+    section {
+      margin-top: 42px;
+      padding: 26px 20px;
+      background: rgba(15,23,42,0.92);
+      border-radius: 24px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 20px 60px rgba(15,23,42,0.9);
+    }
+
+    section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    section h2 span.icon {
+      font-size: 1.4rem;
+    }
+
+    section p, section li {
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .section-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin-top: 6px;
+    }
+
+    /* Plan cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.20), transparent 58%),
+                  rgba(15,23,42,0.98);
+      border-radius: 20px;
+      padding: 14px 16px;
+      border: 1px solid rgba(148,163,184,0.4);
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .card small {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    /* Slider */
+    .slider {
+      margin-top: 16px;
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: rgba(15,23,42,0.7);
+      min-height: 210px;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out, transform 0.6s ease-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1.0);
+    }
+
+    .slide-content {
+      max-width: 480px;
+    }
+
+    .slide-title {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .slide-text {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+    }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+
+    .slider-dots button {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(148,163,184,0.6);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .slider-dots button.active {
+      background: #facc15;
+      width: 14px;
+    }
+
+    /* Video */
+    .video-wrapper {
+      margin-top: 12px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: #020617;
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      max-width: 1100px;
+      margin: 0 auto 26px auto;
+      padding: 0 18px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      opacity: 0.75;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span {
+      font-weight: 500;
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 20px 16px;
+      }
+
+      .hero-right {
+        min-height: 200px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links {
+        display: none;
+      }
+
+      main {
+        padding-top: 26px;
+      }
+
+      section {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating background shapes -->
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+
+  <!-- Navigation -->
+  <header>
+    <nav class="nav">
+      <div class="logo">Présentation <span>FR</span></div>
+      <div class="nav-links">
+        <a href="#intro">Résumé</a>
+        <a href="#plan">Plan</a>
+        <a href="#video">Vidéo</a>
+        <a href="#galerie">Galerie</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="intro">
+      <div>
+        <div class="hero-badge">
+          <span>🎤</span> Exposé oral – Français
+        </div>
+        <h1 class="hero-title">Présentation en français par Mujtaba Ghous</h1>
+        <p class="hero-subtitle">
+          Résumé de mon exposé: présentation personnelle, profil de recherche,
+          personnalités québécoises et la ville de Sherbrooke.
+        </p>
+        <p style="font-size:0.9rem; opacity:0.85;">
+          Cliquez sur le plan pour voir les différentes parties, la vidéo de présentation
+          et une petite galerie dynamique.
+        </p>
+        <div class="hero-buttons">
+          <a href="#plan" class="btn btn-primary">Voir le plan</a>
+          <a href="#video" class="btn btn-ghost">Passer à la vidéo ▶</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-tag">Préparé par</div>
+          <div class="hero-name">Mujtaba Ghous</div>
+          <div class="hero-role">Étudiant en maîtrise – Montréal</div>
+
+          <div class="hero-pill">
+            🇨🇦 Exposé pour le cours de français – Université
+          </div>
+
+          <div class="hero-bubbles">
+            <span>📚 Recherche en télécommunications</span>
+            <span>🌎 Québec &amp; culture</span>
+            <span>🏙️ Sherbrooke</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAN -->
+    <section id="plan">
+      <div class="section-tag">Plan de l’exposé</div>
+      <h2><span class="icon">🧭</span> Plan général</h2>
+      <p>
+        Voici la structure de ma présentation. Tu peux garder ce plan ou modifier
+        chaque partie plus tard en fonction de ce que ton professeur demande.
+      </p>
+
+      <div class="grid-2" style="margin-top:14px;">
+        <div class="card">
+          <h3>1. À propos de moi</h3>
+          <small>(présentation personnelle et profil de recherche)</small>
+          <ul>
+            <li>Qui je suis, d’où je viens.</li>
+            <li>Mes études et mon domaine de recherche.</li>
+            <li>Pourquoi j’ai choisi le Québec.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>2. Scientifiques du Québec – Michael Smith</h3>
+          <small>(travail, impact et héritage)</small>
+          <ul>
+            <li>Qui est Michael Smith.</li>
+            <li>Son travail scientifique principal.</li>
+            <li>Impact sur la science moderne.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>3. René Lévesque – personnalité politique</h3>
+          <small>(positions politiques, élections, discours d’adieu)</small>
+          <ul>
+            <li>Son rôle comme premier ministre du Québec.</li>
+            <li>Ses idées politiques importantes.</li>
+            <li>Résultats électoraux marquants.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>4. Ville de Sherbrooke</h3>
+          <small>(population, sites touristiques, ce qui la rend célèbre)</small>
+          <ul>
+            <li>Présentation rapide de la ville.</li>
+            <li>Quelques lieux touristiques.</li>
+            <li>Ce qui rend Sherbrooke spéciale.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDER / MOVING PICTURES -->
+    <section id="galerie">
+      <div class="section-tag">Diaporama dynamique</div>
+      <h2><span class="icon">🖼️</span> Galerie / Slides</h2>
+      <p>
+        Voici un petit slider avec des images / idées. Tu peux simplement remplacer
+        le texte par tes propres phrases ou insérer des images de toi / de tes sujets.
+      </p>
+
+      <div class="slider" id="slider">
+        <!-- Slide 1 -->
+        <div class="slide active">
+          <div class="slide-content">
+            <div class="slide-title">À propos de moi</div>
+            <div class="slide-text">
+              Ici, tu peux ajouter une photo de toi et un court texte en français
+              pour te présenter (nom, pays d’origine, études, passions).
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+          <div class="slide-content">
+            <div class="slide-title">Michael Smith</div>
+            <div class="slide-text">
+              Tu peux mettre une image de Michael Smith ou un schéma simple montrant
+              son apport à la chimie et à la biologie (ADN, génétique, etc.).
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+          <div class="slide-content">
+            <div class="slide-title">René Lévesque</div>
+            <div class="slide-text">
+              Une image de René Lévesque, le logo du PQ et quelques mots sur son rôle
+              dans l’histoire politique du Québec.
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+          <div class="slide-content">
+            <div class="slide-title">Ville de Sherbrooke</div>
+            <div class="slide-text">
+              Ajoute des photos de la ville, de la nature, des bâtiments ou de l’université
+              pour montrer l’ambiance de Sherbrooke.
+            </div>
+          </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="slider-dots" id="slider-dots">
+          <button class="active" aria-label="Slide 1"></button>
+          <button aria-label="Slide 2"></button>
+          <button aria-label="Slide 3"></button>
+          <button aria-label="Slide 4"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO -->
+    <section id="video">
+      <div class="section-tag">Vidéo de présentation</div>
+      <h2><span class="icon">🎬</span> Vidéo (optionnelle)</h2>
+      <p>
+        Tu peux intégrer ici une vidéo YouTube de ta présentation (ou une autre vidéo).
+        Pour cela, remplace simplement l’URL <code>VIDEO_ID</code> ci-dessous par ton lien.
+      </p>
+
+      <div class="video-wrapper">
+        <!-- Remplace VIDEO_ID par l’ID de ta vidéo YouTube -->
+        <!-- Exemple d’URL complet : https://www.youtube.com/watch?v=VIDEO_ID -->
+        <iframe
+          src="https://www.youtube.com/embed/VIDEO_ID"
+          title="Vidéo de présentation"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Préparé par <span>Mujtaba Ghous</span> – Site dynamique pour la présentation de français.
+  </footer>
+
+  <script>
+    // Simple slider (automatic + dots)
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".slider-dots button");
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+      currentIndex = index;
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        showSlide(idx);
+      });
+    });
+
+    setInterval(() => {
+      const nextIndex = (currentIndex + 1) % totalSlides;
+      showSlide(nextIndex);
+    }, 4500);
+  </script>
+</body>
+</html>
