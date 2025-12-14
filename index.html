@@ -24,43 +24,76 @@
       color: #f9fafb;
       background: #020617;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* 3D background canvas */
-    #bg {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      z-index: 0;
-    }
-
-    /* Glass gradient overlay like SaaS sites */
+    /* BIG animated gradient background */
     body::before {
       content: "";
       position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(37,99,235,0.55), transparent 55%),
-                  radial-gradient(circle at bottom, rgba(168,85,247,0.45), transparent 55%);
+      inset: -40px;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(59,130,246,0.75), transparent 60%),
+        radial-gradient(circle at 90% 100%, rgba(168,85,247,0.75), transparent 60%),
+        radial-gradient(circle at 0% 100%, rgba(34,197,94,0.55), transparent 55%);
+      background-size: 140% 140%;
+      animation: bgMove 22s ease-in-out infinite alternate;
+      opacity: 0.6;
+      filter: blur(6px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 40%; }
+      100% { background-position: 0% 60%; }
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(4px);
+      opacity: 0.18;
       mix-blend-mode: screen;
-      opacity: 0.45;
       pointer-events: none;
       z-index: 0;
+      animation: float 20s ease-in-out infinite alternate;
     }
 
-    .page {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
+    .orb.o1 {
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, #22d3ee, transparent);
+      top: 5%; left: 5%;
     }
 
+    .orb.o2 {
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, #f97316, transparent);
+      top: 60%; right: -8%;
+      animation-delay: 4s;
+    }
+
+    .orb.o3 {
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, #22c55e, transparent);
+      bottom: -12%; left: 40%;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0px) translateX(0px); }
+      to   { transform: translateY(-40px) translateX(20px); }
+    }
+
+    /* Sticky header */
     header {
       position: sticky;
       top: 0;
       z-index: 10;
-      backdrop-filter: blur(20px);
-      background: linear-gradient(to right, rgba(15,23,42,0.96), rgba(15,23,42,0.4));
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to right, rgba(15,23,42,0.98), rgba(15,23,42,0.4));
       border-bottom: 1px solid rgba(148,163,184,0.4);
     }
 
@@ -111,26 +144,36 @@
       max-width: 1120px;
       margin: 0 auto;
       padding: 32px 18px 40px 18px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* SECTION BASE */
+    /* GENERIC SECTION CARD (with 3D scroll animation) */
     section {
       margin: 32px 0;
       padding: 26px 22px;
       border-radius: 26px;
       background: radial-gradient(circle at top left,
-                 rgba(15,23,42,0.97),
-                 rgba(15,23,42,0.98));
-      border: 1px solid rgba(148,163,184,0.35);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.9);
+        rgba(15,23,42,0.98),
+        rgba(15,23,42,0.96));
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 24px 90px rgba(0,0,0,0.95);
       position: relative;
       overflow: hidden;
+      opacity: 0;
+      transform: translateY(60px) scale(0.96);
+      transition: opacity .7s ease-out, transform .7s ease-out;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     section::before {
       content: "";
       position: absolute;
-      inset: -30%;
+      inset: -35%;
       background: radial-gradient(circle at top right,
                   rgba(56,189,248,0.22),
                   transparent 60%);
@@ -161,9 +204,7 @@
       margin-bottom: 10px;
     }
 
-    .section-title .icon {
-      font-size: 1.4rem;
-    }
+    .section-title .icon { font-size: 1.4rem; }
 
     section p, section li {
       font-size: 0.96rem;
@@ -176,20 +217,13 @@
       margin-top: 6px;
     }
 
-    /* HERO (Amanda-style) */
+    /* HERO ------------------------------------------------- */
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
       gap: 32px;
       align-items: center;
       min-height: calc(100vh - 120px);
-      background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(15,23,42,0.9));
-    }
-
-    .hero::before {
-      background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.4), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(168,85,247,0.4), transparent 60%);
     }
 
     .hero-badge {
@@ -205,7 +239,7 @@
     }
 
     .hero-title {
-      font-size: clamp(2.1rem, 3.4vw, 2.7rem);
+      font-size: clamp(2.1rem, 3.4vw, 2.8rem);
       font-weight: 700;
       margin-bottom: 12px;
     }
@@ -245,7 +279,7 @@
 
     .btn-primary:hover {
       transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 20px 40px rgba(22,163,74,0.8);
+      box-shadow: 0 22px 46px rgba(22,163,74,0.8);
     }
 
     .btn-ghost {
@@ -272,16 +306,11 @@
         rgba(15,23,42,0.96);
       border: 1px solid rgba(148,163,184,0.7);
       padding: 18px;
-      box-shadow: 0 26px 80px rgba(0,0,0,0.95);
+      box-shadow: 0 26px 90px rgba(0,0,0,0.95);
       width: 100%;
       transform-style: preserve-3d;
-      transform: rotateY(-8deg) rotateX(4deg) translateZ(0);
-      transition: transform .3s ease-out, box-shadow .3s ease-out;
-    }
-
-    .hero-card-3d:hover {
-      transform: rotateY(0deg) rotateX(0deg) translateZ(12px);
-      box-shadow: 0 30px 90px rgba(0,0,0,1);
+      transform: rotateY(-10deg) rotateX(4deg) translateZ(0);
+      transition: transform .25s ease-out, box-shadow .25s ease-out;
     }
 
     .hero-card-top {
@@ -298,7 +327,7 @@
       overflow: hidden;
       border: 3px solid rgba(248,250,252,0.96);
       background: #020617;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.95);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.95);
       transform: translateZ(30px);
     }
 
@@ -340,7 +369,7 @@
       transform: translateZ(10px);
     }
 
-    /* SPLIT SECTIONS (about / smith / rene / city) */
+    /* Tilt cards for other sections */
     .split {
       display: grid;
       grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
@@ -361,12 +390,8 @@
       box-shadow: 0 22px 70px rgba(0,0,0,0.98);
       transform-style: preserve-3d;
       transform: rotateY(-10deg) rotateX(5deg);
-      transition: transform .35s ease-out, box-shadow .35s ease-out;
-    }
-
-    .image-frame:hover .image-tilt {
-      transform: rotateY(0deg) rotateX(0deg) translateZ(18px);
-      box-shadow: 0 28px 90px rgba(0,0,0,1);
+      transition: transform .25s ease-out, box-shadow .25s ease-out;
+      cursor: pointer;
     }
 
     .image-tilt img {
@@ -428,9 +453,9 @@
       border-radius: 999px;
     }
 
-    /* GALLERY GRID */
+    /* Gallery */
     .gallery-grid {
-      margin-top: 12px;
+      margin-top: 14px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
@@ -444,7 +469,8 @@
       box-shadow: 0 18px 45px rgba(0,0,0,0.95);
       background: #020617;
       transform-style: preserve-3d;
-      transition: transform .35s ease-out, box-shadow .35s ease-out;
+      transition: transform .25s ease-out, box-shadow .25s ease-out;
+      cursor: pointer;
     }
 
     .gallery-item img {
@@ -470,7 +496,7 @@
       box-shadow: 0 26px 70px rgba(0,0,0,1);
     }
 
-    /* VIDEO SECTION (simple, but in 3D frame) */
+    /* Video */
     .video-frame {
       margin-top: 12px;
       border-radius: 22px;
@@ -492,10 +518,8 @@
       border: 0;
     }
 
-    /* THANKS */
-    .thanks-center {
-      text-align: center;
-    }
+    /* Thanks */
+    .thanks-center { text-align: center; }
 
     .thanks-img-wrap {
       margin-top: 16px;
@@ -528,11 +552,60 @@
       z-index: 1;
     }
 
-    footer span {
-      font-weight: 500;
+    footer span { font-weight: 500; }
+
+    /* IMAGE MODAL (on click) */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease-out;
+      z-index: 30;
     }
 
-    /* RESPONSIVE */
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-inner {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #020617;
+      box-shadow: 0 30px 120px rgba(0,0,0,1);
+      transform: scale(0.85);
+      transition: transform .3s ease-out;
+    }
+
+    .modal.open .modal-inner {
+      transform: scale(1);
+    }
+
+    .modal-inner img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+
+    .modal-close {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #e5e7eb;
+    }
+
+    /* Responsive */
     @media (max-width: 960px) {
       .hero {
         grid-template-columns: 1fr;
@@ -552,20 +625,30 @@
     @media (max-width: 520px) {
       .nav-links { display: none; }
       main { padding-top: 26px; }
-      .section { padding: 20px 16px; }
+      section { padding: 20px 16px; }
       .gallery-item img { height: 140px; }
     }
   </style>
 </head>
 <body>
-  <!-- 3D BACKGROUND -->
-  <canvas id="bg"></canvas>
+  <!-- floating blobs -->
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+
+  <!-- IMAGE MODAL -->
+  <div class="modal" id="imageModal">
+    <div class="modal-inner">
+      <img src="" alt="Zoomed image" id="modalImage">
+    </div>
+    <div class="modal-close" id="modalClose">✕</div>
+  </div>
 
   <div class="page">
-    <!-- NAV -->
+    <!-- NAVBAR -->
     <header>
       <nav class="nav">
-        <div class="logo">Mujtaba <span>3D</span></div>
+        <div class="logo">MUJTABA <span>3D</span></div>
         <div class="nav-links">
           <a href="#hero">Intro</a>
           <a href="#about">About</a>
@@ -573,6 +656,7 @@
           <a href="#rene">Politician</a>
           <a href="#city">City</a>
           <a href="#gallery">Gallery</a>
+          <a href="#video">Video</a>
           <a href="#thanks">Thanks</a>
         </div>
       </nav>
@@ -580,7 +664,7 @@
 
     <main>
       <!-- HERO -->
-      <section class="hero" id="hero">
+      <section id="hero" class="hero">
         <div class="section-inner" style="position:relative; z-index:1;">
           <div class="hero-badge">
             <span>🎤</span> Oral presentation – French
@@ -591,8 +675,8 @@
             key Quebec personalities and the city of Sherbrooke.
           </p>
           <p>
-            Scroll down or use the menu to explore each part. The 3D background reacts to
-            your mouse and scroll, giving a dynamic “SaaS landing page” feeling.
+            Move your mouse over the cards and images, scroll down, and click on any picture
+            to see it pop out in the center of the screen.
           </p>
 
           <div class="hero-buttons">
@@ -602,7 +686,7 @@
         </div>
 
         <div class="hero-right">
-          <div class="hero-card-3d">
+          <div class="hero-card-3d tilt-card">
             <div class="hero-card-top">
               <div class="hero-avatar">
                 <img src="mujtaba.jpg" alt="Mujtaba portrait">
@@ -640,8 +724,8 @@
               with a focus on telecommunications and machine learning.
             </p>
             <p style="margin-top:8px;">
-              In this part of the presentation, I explain my academic path, my country of origin
-              and why I chose to study in Quebec.
+              Here I explain my academic path, my country of origin and why I chose to
+              study in Quebec.
             </p>
             <p style="margin-top:8px;">
               I am part of the Quebec university network, especially
@@ -655,8 +739,8 @@
           </div>
 
           <div class="image-frame">
-            <div class="image-tilt">
-              <img src="mujtaba.jpg" alt="Mujtaba student">
+            <div class="image-tilt tilt-card">
+              <img src="mujtaba.jpg" alt="Mujtaba student" class="zoomable">
             </div>
             <div class="image-badge">Étudiant international 🎓</div>
           </div>
@@ -686,8 +770,8 @@
           </div>
 
           <div class="image-frame">
-            <div class="image-tilt">
-              <img src="smith_medal.jpg" alt="Michael Smith and Nobel Medal">
+            <div class="image-tilt tilt-card">
+              <img src="smith_medal.jpg" alt="Michael Smith and Nobel Medal" class="zoomable">
             </div>
             <div class="image-badge">Nobel Prize in Chemistry 🏅</div>
           </div>
@@ -706,9 +790,8 @@
               <strong>Parti québécois (PQ)</strong>.
             </p>
             <p style="margin-top:8px;">
-              He is known for defending the French language, promoting Quebec sovereignty,
-              and modernising the Quebec state. His speeches and his farewell address are
-              important moments in Quebec history.
+              He is known for defending the French language, promoting Quebec sovereignty
+              and modernising the state. His speeches marked Quebec history.
             </p>
 
             <div class="chip-row">
@@ -724,8 +807,8 @@
           </div>
 
           <div class="image-frame">
-            <div class="image-tilt">
-              <img src="rene.jpg" alt="René Lévesque">
+            <div class="image-tilt tilt-card">
+              <img src="rene.jpg" alt="René Lévesque" class="zoomable">
             </div>
             <div class="image-badge">Ancien premier ministre</div>
           </div>
@@ -739,58 +822,57 @@
             <div class="section-label">Part 4</div>
             <h2 class="section-title"><span class="icon">🏙️</span> City of Sherbrooke</h2>
             <p>
-              Sherbrooke is a city in the Estrie region of Quebec. It is surrounded by hills,
-              lakes and forests, and has a large student population.
+              Sherbrooke is a city in the Estrie region of Quebec, surrounded by hills,
+              lakes and forests, with a large student population.
             </p>
             <p style="margin-top:8px;">
-              In my presentation, I talk about its population, its geographical position, its
-              main tourist sites and what makes the city famous: natural environment,
-              universities and quality of life.
+              I present its population, location, main tourist sites and what makes
+              Sherbrooke famous: nature, universities and quality of life.
             </p>
           </div>
 
           <div class="image-frame">
-            <div class="image-tilt">
-              <img src="sherbrook1.jpg" alt="Sherbrooke">
+            <div class="image-tilt tilt-card">
+              <img src="sherbrook1.jpg" alt="Sherbrooke" class="zoomable">
             </div>
             <div class="image-badge">Vue de Sherbrooke 🌄</div>
           </div>
         </div>
       </section>
 
-      <!-- GALLERY 3D GRID -->
+      <!-- GALLERY GRID -->
       <section id="gallery">
         <div class="section-inner">
           <div class="section-label">Gallery</div>
           <h2 class="section-title"><span class="icon">📸</span> Image gallery</h2>
           <p>
-            A small 3D-style gallery using all my images: portraits, medals, flags and the city.
-            Hover the cards to see the depth effect.
+            A dynamic gallery using all my images. Hover to see the depth effect,
+            click to open any picture in the center of the screen.
           </p>
 
           <div class="gallery-grid">
-            <div class="gallery-item">
-              <img src="mujtaba.jpg" alt="Mujtaba">
+            <div class="gallery-item tilt-card">
+              <img src="mujtaba.jpg" alt="Mujtaba" class="zoomable">
               <span>Mujtaba</span>
             </div>
-            <div class="gallery-item">
-              <img src="smith.png" alt="Michael Smith">
+            <div class="gallery-item tilt-card">
+              <img src="smith.png" alt="Michael Smith" class="zoomable">
               <span>Michael Smith</span>
             </div>
-            <div class="gallery-item">
-              <img src="smith_donor.png" alt="Michael Smith donor image">
+            <div class="gallery-item tilt-card">
+              <img src="smith_donor.png" alt="Michael Smith donor image" class="zoomable">
               <span>Smith – donor photo</span>
             </div>
-            <div class="gallery-item">
-              <img src="smith_medal.jpg" alt="Nobel medal">
+            <div class="gallery-item tilt-card">
+              <img src="smith_medal.jpg" alt="Nobel medal" class="zoomable">
               <span>Nobel medal</span>
             </div>
-            <div class="gallery-item">
-              <img src="rene.jpg" alt="René Lévesque">
+            <div class="gallery-item tilt-card">
+              <img src="rene.jpg" alt="René Lévesque" class="zoomable">
               <span>René Lévesque</span>
             </div>
-            <div class="gallery-item">
-              <img src="sherbrook1.jpg" alt="Sherbrooke">
+            <div class="gallery-item tilt-card">
+              <img src="sherbrook1.jpg" alt="Sherbrooke" class="zoomable">
               <span>Sherbrooke</span>
             </div>
           </div>
@@ -806,7 +888,7 @@
             Later I can upload my French presentation to YouTube and embed it here by replacing
             <code>VIDEO_ID_HERE</code> with the real ID of my video.
           </p>
-          <div class="video-frame">
+          <div class="video-frame tilt-card">
             <iframe
               src="https://www.youtube.com/embed/VIDEO_ID_HERE"
               title="Presentation video placeholder"
@@ -822,12 +904,12 @@
           <div class="section-label">End</div>
           <h2 class="section-title"><span class="icon">🙏</span> Thank you for your attention.</h2>
           <p>
-            Thank you very much for your attention and time. I hope this modern 3D website
-            helps make my presentation more memorable.
+            Thank you very much for your attention and time. I hope this animated website
+            makes my French presentation more memorable.
           </p>
           <div class="thanks-emoji">😊</div>
           <div class="thanks-img-wrap">
-            <img src="merci.png" alt="Merci pour votre attention">
+            <img src="merci.png" alt="Merci pour votre attention" class="zoomable">
           </div>
         </div>
       </section>
@@ -838,147 +920,70 @@
     </footer>
   </div>
 
-  <!-- SCRIPTS: Three.js + GSAP for 3D background + intro animations -->
-  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
+  <!-- PURE JS (no external libraries) -->
   <script>
-    // THREE.JS 3D BACKGROUND -----------------------------------
-    const canvas = document.getElementById("bg");
-    const scene = new THREE.Scene();
-
-    const camera = new THREE.PerspectiveCamera(
-      60,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      100
+    // 1) Scroll animation: reveal sections when they enter viewport
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
     );
-    camera.position.set(0, 0, 18);
+    sections.forEach((sec) => observer.observe(sec));
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true
-    });
-    renderer.setPixelRatio(window.devicePixelRatio || 1);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    // 2) 3D tilt effect for cards
+    function addTiltEffect(el, maxTilt = 12) {
+      if (!el) return;
+      el.addEventListener("mousemove", (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateY = ((x - centerX) / centerX) * maxTilt;
+        const rotateX = -((y - centerY) / centerY) * maxTilt;
+        el.style.transform =
+          `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(18px)`;
+        el.style.boxShadow = "0 28px 90px rgba(0,0,0,1)";
+      });
 
-    // Lights
-    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambient);
-
-    const mainLight = new THREE.PointLight(0x7dd3fc, 1.2);
-    mainLight.position.set(10, 10, 15);
-    scene.add(mainLight);
-
-    const purpleLight = new THREE.PointLight(0xa855f7, 0.9);
-    purpleLight.position.set(-12, -4, -6);
-    scene.add(purpleLight);
-
-    // Main glowing sphere
-    const sphereGeo = new THREE.SphereGeometry(6, 64, 64);
-    const sphereMat = new THREE.MeshStandardMaterial({
-      color: 0x1d4ed8,
-      metalness: 0.6,
-      roughness: 0.15,
-      emissive: 0x1d4ed8,
-      emissiveIntensity: 0.35
-    });
-    const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-    sphere.position.set(-2, 0.5, -8);
-    scene.add(sphere);
-
-    // Floating small panels (3D cards)
-    const cardsGroup = new THREE.Group();
-    scene.add(cardsGroup);
-
-    const cardGeo = new THREE.BoxGeometry(3.2, 1.8, 0.15);
-    const cardMat1 = new THREE.MeshStandardMaterial({ color: 0x38bdf8, metalness: 0.8, roughness: 0.2 });
-    const cardMat2 = new THREE.MeshStandardMaterial({ color: 0xa855f7, metalness: 0.8, roughness: 0.2 });
-    const cardMat3 = new THREE.MeshStandardMaterial({ color: 0x22c55e, metalness: 0.8, roughness: 0.2 });
-
-    const card1 = new THREE.Mesh(cardGeo, cardMat1);
-    card1.position.set(6, 2.5, -6);
-    cardsGroup.add(card1);
-
-    const card2 = new THREE.Mesh(cardGeo, cardMat2);
-    card2.position.set(4, -3, -5);
-    cardsGroup.add(card2);
-
-    const card3 = new THREE.Mesh(cardGeo, cardMat3);
-    card3.position.set(-6, -2.5, -7);
-    cardsGroup.add(card3);
-
-    // Star field
-    const starGeo = new THREE.BufferGeometry();
-    const starCount = 500;
-    const positions = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
-      positions[i * 3 + 0] = (Math.random() - 0.5) * 80;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 80;
-    }
-    starGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, transparent: true, opacity: 0.7 });
-    const stars = new THREE.Points(starGeo, starMat);
-    scene.add(stars);
-
-    // Mouse parallax
-    let mouseX = 0, mouseY = 0;
-    window.addEventListener("pointermove", (e) => {
-      const x = (e.clientX / window.innerWidth)  * 2 - 1;
-      const y = (e.clientY / window.innerHeight) * 2 - 1;
-      mouseX = x;
-      mouseY = y;
-    });
-
-    // Scroll influence
-    function getScrollFactor() {
-      const scrollY = window.scrollY || window.pageYOffset;
-      const docH   = document.body.scrollHeight - window.innerHeight;
-      if (docH <= 0) return 0;
-      return scrollY / docH;
+      el.addEventListener("mouseleave", () => {
+        el.style.transform =
+          "rotateX(0deg) rotateY(0deg) translateZ(0)";
+        el.style.boxShadow = "0 22px 70px rgba(0,0,0,0.98)";
+      });
     }
 
-    function animate() {
-      requestAnimationFrame(animate);
+    document.querySelectorAll(".tilt-card").forEach((card) => addTiltEffect(card));
 
-      const t = performance.now() * 0.0003;
-      const s = getScrollFactor();
+    // 3) Click-to-zoom modal for images
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const modalClose = document.getElementById("modalClose");
 
-      sphere.rotation.y += 0.002;
-      sphere.rotation.x = 0.15 * Math.sin(t * 2);
-
-      cardsGroup.rotation.y = Math.sin(t * 1.4) * 0.3 + mouseX * 0.4;
-      cardsGroup.rotation.x = Math.cos(t * 1.1) * 0.15 - mouseY * 0.3;
-      cardsGroup.position.y = Math.sin(t * 1.3) * 0.5;
-
-      stars.rotation.y += 0.0005;
-      stars.rotation.x += 0.0002;
-
-      camera.position.x = mouseX * 2;
-      camera.position.y = mouseY * 1.5;
-      camera.position.z = 18 - s * 4;
-      camera.lookAt(0, 0, -8);
-
-      renderer.render(scene, camera);
+    function openModal(src, alt) {
+      modalImg.src = src;
+      modalImg.alt = alt || "";
+      modal.classList.add("open");
     }
-    animate();
 
-    // Resize
-    window.addEventListener("resize", () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+    function closeModal() {
+      modal.classList.remove("open");
+    }
+
+    document.querySelectorAll(".zoomable").forEach((img) => {
+      img.addEventListener("click", () => openModal(img.src, img.alt));
     });
 
-    // SIMPLE GSAP INTRO (safe – if GSAP fails, page still works)
-    if (window.gsap) {
-      gsap.from(".hero-title", { y: 30, opacity: 0, duration: 1, ease: "power3.out" });
-      gsap.from(".hero-subtitle", { y: 20, opacity: 0, duration: 1, delay: 0.2, ease: "power3.out" });
-      gsap.from(".hero-buttons", { y: 20, opacity: 0, duration: 0.8, delay: 0.4, ease: "power3.out" });
-      gsap.from(".hero-card-3d", { y: 40, opacity: 0, duration: 1.1, delay: 0.3, ease: "power3.out" });
-    }
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
   </script>
 </body>
 </html>
