@@ -257,5 +257,623 @@
     }
 
     .hero-avatar {
-      width: 60px;
-      height: 60px;
+      width: 110px;
+      height: 110px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid rgba(248,250,252,0.8);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+      flex-shrink: 0;
+      background: #020617;
+    }
+
+    .hero-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-name-block { position: relative; }
+
+    .hero-tag { font-size: 0.75rem; color: #e5e7eb; opacity: 0.9; }
+    .hero-name { font-size: 1.1rem; font-weight: 600; }
+    .hero-role { font-size: 0.9rem; color: #d1d5db; margin-top: 2px; }
+
+    .hero-pill {
+      font-size: 0.8rem;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: rgba(8,47,73,0.9);
+      border: 1px solid rgba(56,189,248,0.7);
+      max-width: max-content;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-bubbles {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-bubbles span {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,184,0.7);
+    }
+
+    section {
+      margin-top: 42px;
+      padding: 26px 20px;
+      background: rgba(15,23,42,0.96);
+      border-radius: 24px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.9);
+      transform: translateY(10px);
+      animation: sectionIn 0.7s ease-out forwards;
+      opacity: 0;
+    }
+
+    section:nth-of-type(2) { animation-delay: 0.2s; }
+    section:nth-of-type(3) { animation-delay: 0.4s; }
+    section:nth-of-type(4) { animation-delay: 0.6s; }
+    section:nth-of-type(5) { animation-delay: 0.8s; }
+
+    @keyframes sectionIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.99);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    section h2 span.icon { font-size: 1.4rem; }
+
+    section p, section li {
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .section-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    ul { padding-left: 20px; margin-top: 6px; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .card {
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.20), transparent 58%),
+        rgba(15,23,42,0.98);
+      border-radius: 20px;
+      padding: 14px 16px;
+      border: 1px solid rgba(148,163,184,0.45);
+      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(248,250,252,0.9);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.9);
+    }
+
+    .card h3 { font-size: 1.05rem; margin-bottom: 4px; }
+    .card small { font-size: 0.75rem; opacity: 0.7; }
+
+    .card-logos {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .card-logos img {
+      max-height: 30px;
+      background: #ffffff;
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+
+    .slider {
+      margin-top: 16px;
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: radial-gradient(circle at top, rgba(15,23,42,1), rgba(15,23,42,0.9));
+      min-height: 260px;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out, transform 0.6s ease-out;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      padding: 16px 18px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: scale(1.0);
+    }
+
+    .slide-image-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.85);
+      background: #020617;
+    }
+
+    .slide-image-wrapper::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent, rgba(15,23,42,0.45));
+      pointer-events: none;
+    }
+
+    .slide-image {
+      width: 100%;
+      height: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+      transition: transform 4s ease-out;
+    }
+
+    .slide.active .slide-image {
+      transform: scale(1.08);
+    }
+
+    .slide-content {
+      max-width: 420px;
+    }
+
+    .slide-title { font-size: 1.1rem; margin-bottom: 4px; }
+    .slide-text { font-size: 0.9rem; color: #e5e7eb; margin-top: 6px; }
+
+    .slide-logos {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .slide-logos img {
+      max-height: 32px;
+      background: #ffffff;
+      padding: 3px 6px;
+      border-radius: 999px;
+    }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .slider-dots button {
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(148,163,184,0.7);
+      cursor: pointer;
+      padding: 0;
+      transition: width 0.18s ease-out, background 0.18s;
+    }
+
+    .slider-dots button.active {
+      background: #facc15;
+      width: 16px;
+    }
+
+    .video-wrapper {
+      margin-top: 12px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: #020617;
+      aspect-ratio: 16 / 9;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+    }
+
+    .video-wrapper iframe,
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .merci-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+    }
+
+    .merci-wrapper img {
+      max-width: 320px;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 0 auto 26px auto;
+      padding: 0 18px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      opacity: 0.8;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span { font-weight: 500; }
+
+    @media (max-width: 900px) {
+      .slide {
+        grid-template-columns: 1fr;
+      }
+      .slide-image {
+        max-height: 210px;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 22px 16px;
+      }
+      .hero-right { min-height: 220px; }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links { display: none; }
+      main { padding-top: 26px; }
+      section { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating animated background shapes -->
+  <div class="floating-circle circle-1"></div>
+  <div class="floating-circle circle-2"></div>
+  <div class="floating-circle circle-3"></div>
+
+  <!-- NAV -->
+  <header>
+    <nav class="nav">
+      <div class="logo">Présentation <span>FR</span></div>
+      <div class="nav-links">
+        <a href="#intro">Résumé</a>
+        <a href="#plan">Plan</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#video">Vidéo</a>
+        <a href="#merci">Merci</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="intro">
+      <div>
+        <div class="hero-badge">
+          <span>🎤</span> Exposé oral – Français
+        </div>
+        <h1 class="hero-title">Présentation en français par Mujtaba Ghous</h1>
+        <p class="hero-subtitle">
+          Présentation personnelle, profil de recherche, personnalités québécoises
+          et la ville de Sherbrooke.
+        </p>
+        <p style="font-size:0.9rem; opacity:0.9;">
+          Ce site sert de support visuel dynamique pour mon exposé : plan, images,
+          logos d’universités et personnalités importantes du Québec.
+        </p>
+        <div class="hero-buttons">
+          <a href="#plan" class="btn btn-primary">Voir le plan</a>
+          <a href="#galerie" class="btn btn-ghost">Voir les images 🖼️</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-top">
+            <div class="hero-avatar">
+              <!-- Avatar: ta photo -->
+              <img src="mujtaba.png" alt="Portrait de Mujtaba">
+            </div>
+            <div class="hero-name-block">
+              <div class="hero-tag">Préparé par</div>
+              <div class="hero-name">Mujtaba Ghous</div>
+              <div class="hero-role">Étudiant en maîtrise – Montréal</div>
+            </div>
+          </div>
+
+          <div class="hero-pill">
+            🇨🇦 Cours de français – Université
+          </div>
+
+          <div class="hero-bubbles">
+            <span>📚 Télécommunications</span>
+            <span>🌎 Québec &amp; culture</span>
+            <span>🏙️ Sherbrooke</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAN -->
+    <section id="plan">
+      <div class="section-tag">Plan</div>
+      <h2><span class="icon">🧭</span> Plan de la présentation</h2>
+      <p>
+        Je suis ce plan comme fil conducteur pendant mon exposé. Chaque partie
+        est illustrée avec une image ou un logo pour rendre la présentation plus
+        visuelle.
+      </p>
+
+      <div class="grid-2" style="margin-top:14px;">
+        <div class="card">
+          <h3>1. À propos de moi</h3>
+          <small>Présentation personnelle</small>
+          <ul>
+            <li>Nom, pays d’origine et parcours.</li>
+            <li>Études en maîtrise en génie / télécommunications.</li>
+            <li>Pourquoi j’ai choisi le Québec et Montréal.</li>
+          </ul>
+          <div class="card-logos">
+            <img src="ets_logo.png" alt="Logo ÉTS">
+            <img src="uqam_logo.png" alt="Logo UQAM">
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>2. Michael Smith</h3>
+          <small>Scientifique du Québec (prix Nobel)</small>
+          <ul>
+            <li>Brève biographie.</li>
+            <li>Travail scientifique sur l’ADN et la génétique.</li>
+            <li>Impact et héritage scientifiques.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>3. René Lévesque</h3>
+          <small>Personnalité politique</small>
+          <ul>
+            <li>Ancien premier ministre du Québec.</li>
+            <li>Positions politiques et Parti québécois (PQ).</li>
+            <li>Élections et discours d’adieu.</li>
+          </ul>
+          <div class="card-logos">
+            <img src="pq_flag.png" alt="Drapeau du Québec">
+            <img src="pq_logo.png" alt="Logo Parti québécois">
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>4. Ville de Sherbrooke</h3>
+          <small>Ville et culture</small>
+          <ul>
+            <li>Population et situation géographique.</li>
+            <li>Sites touristiques importants.</li>
+            <li>Ce qui rend la ville célèbre.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIE / SLIDER -->
+    <section id="galerie">
+      <div class="section-tag">Galerie</div>
+      <h2><span class="icon">🖼️</span> Galerie / Slides</h2>
+      <p>
+        Voici un diaporama automatique avec mes propres images : ma photo,
+        Michael Smith, René Lévesque, et la ville de Sherbrooke. Les logos sont
+        ajoutés pour rappeler les institutions et partis importants.
+      </p>
+
+      <div class="slider" id="slider">
+        <!-- Slide 1 – Moi / portrait -->
+        <div class="slide active">
+          <div class="slide-image-wrapper">
+            <img class="slide-image"
+                 src="mujtaba.png"
+                 alt="Mujtaba">
+          </div>
+          <div class="slide-content">
+            <div class="slide-title">À propos de moi</div>
+            <div class="slide-text">
+              Je m’appelle Mujtaba Ghous. Je viens du Pakistan et j’étudie en
+              maîtrise à Montréal dans le domaine des télécommunications et de
+              l’apprentissage automatique. J’aime découvrir la culture
+              québécoise et améliorer mon français.
+            </div>
+            <div class="slide-logos">
+              <img src="ets_logo.png" alt="Logo ÉTS">
+              <img src="uqam_logo.png" alt="Logo UQAM">
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 – Michael Smith / science -->
+        <div class="slide">
+          <div class="slide-image-wrapper">
+            <img class="slide-image"
+                 src="smith_medal.png"
+                 alt="Michael Smith et médaille Nobel">
+          </div>
+          <div class="slide-content">
+            <div class="slide-title">Michael Smith – scientifique</div>
+            <div class="slide-text">
+              Michael Smith est un chimiste canadien-britannique qui a reçu le
+              prix Nobel de chimie en 1993 pour ses travaux sur la mutagenèse
+              dirigée de l’ADN. Ses recherches ont eu un rôle clé dans le
+              développement de la biologie moléculaire moderne.
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 – René Lévesque / politique -->
+        <div class="slide">
+          <div class="slide-image-wrapper">
+            <img class="slide-image"
+                 src="rene.png"
+                 alt="René Lévesque">
+          </div>
+          <div class="slide-content">
+            <div class="slide-title">René Lévesque – personnalité politique</div>
+            <div class="slide-text">
+              René Lévesque a été premier ministre du Québec et chef du Parti
+              québécois (PQ). Il a marqué l’histoire politique du Québec par
+              ses idées sur la souveraineté et la défense de l’identité
+              québécoise.
+            </div>
+            <div class="slide-logos">
+              <img src="pq_flag.png" alt="Drapeau du Québec">
+              <img src="pq_logo.png" alt="Logo Parti québécois">
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 – Sherbrooke / ville -->
+        <div class="slide">
+          <div class="slide-image-wrapper">
+            <img class="slide-image"
+                 src="sherbrooke.png"
+                 alt="Ville de Sherbrooke">
+          </div>
+          <div class="slide-content">
+            <div class="slide-title">Ville de Sherbrooke</div>
+            <div class="slide-text">
+              Sherbrooke est une ville du Québec située au cœur de la région
+              de l’Estrie. Elle est entourée de nature, possède plusieurs
+              universités et offre un mélange de vie étudiante, d’activités
+              culturelles et de beaux paysages.
+            </div>
+          </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="slider-dots" id="slider-dots">
+          <button class="active" aria-label="Slide 1"></button>
+          <button aria-label="Slide 2"></button>
+          <button aria-label="Slide 3"></button>
+          <button aria-label="Slide 4"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO (facultatif, à modifier plus tard si tu as une vidéo) -->
+    <section id="video">
+      <div class="section-tag">Vidéo</div>
+      <h2><span class="icon">🎬</span> Vidéo de présentation</h2>
+      <p>
+        Je peux intégrer ici une vidéo YouTube de mon exposé. Plus tard, il
+        suffira de remplacer <code>VIDEO_ID</code> par l’identifiant de ma
+        vidéo YouTube.
+      </p>
+
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/VIDEO_ID"
+          title="Vidéo de présentation"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- MERCI -->
+    <section id="merci">
+      <div class="section-tag">Fin</div>
+      <h2><span class="icon">🙏</span> Merci pour votre attention</h2>
+      <div class="merci-wrapper">
+        <img src="merci.png" alt="Merci pour votre attention">
+        <p>
+          Merci beaucoup pour votre attention et votre temps. J’espère que cette
+          présentation vous a aidés à mieux comprendre mon parcours, les
+          personnalités québécoises et la ville de Sherbrooke.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Préparé par <span>Mujtaba Ghous</span> – Site dynamique pour exposé oral en français.
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".slider-dots button");
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+      currentIndex = index;
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        showSlide(idx);
+      });
+    });
+
+    setInterval(() => {
+      const nextIndex = (currentIndex + 1) % totalSlides;
+      showSlide(nextIndex);
+    }, 4500);
+  </script>
+</body>
+</html>
